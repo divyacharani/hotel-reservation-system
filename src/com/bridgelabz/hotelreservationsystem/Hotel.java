@@ -4,14 +4,18 @@ public class Hotel {
 
 	private String hotelName;
 	private int rateForRegularCustomer;
+	private long totalRate;
 
-	//Constructor
+	// Constructor
 	public Hotel(String hotelName, int rateForRegularCustomer) {
 		this.hotelName = hotelName;
 		this.rateForRegularCustomer = rateForRegularCustomer;
 	}
 
-	//Setters and Getters
+	public Hotel() {
+		
+	}
+	// Setters and Getters
 	public String getHotelName() {
 		return hotelName;
 	}
@@ -26,6 +30,14 @@ public class Hotel {
 
 	public void setRateForRegularCustomer(int rateForRegularCustomer) {
 		this.rateForRegularCustomer = rateForRegularCustomer;
+	}
+
+	public long getTotalRate() {
+		return totalRate;
+	}
+
+	public void setTotalRate(long totalRate) {
+		this.totalRate = totalRate;
 	}
 
 }
