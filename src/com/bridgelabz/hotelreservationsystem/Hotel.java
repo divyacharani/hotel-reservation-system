@@ -3,18 +3,22 @@ package com.bridgelabz.hotelreservationsystem;
 public class Hotel {
 
 	private String hotelName;
-	private int rateForRegularCustomer;
+	private int rateForRegularCustomerWeekDay;
+	private int rateForRegularCustomerWeekEnd;
 	private long totalRate;
 
 	// Constructor
-	public Hotel(String hotelName, int rateForRegularCustomer) {
+	public Hotel(String hotelName, int rateForRegularCustomerWeekDay, int rateForRegularCustomerWeekEnd) {
+		super();
 		this.hotelName = hotelName;
-		this.rateForRegularCustomer = rateForRegularCustomer;
+		this.rateForRegularCustomerWeekDay = rateForRegularCustomerWeekDay;
+		this.rateForRegularCustomerWeekEnd = rateForRegularCustomerWeekEnd;
 	}
 
 	public Hotel() {
-		
+
 	}
+
 	// Setters and Getters
 	public String getHotelName() {
 		return hotelName;
@@ -24,12 +28,20 @@ public class Hotel {
 		this.hotelName = hotelName;
 	}
 
-	public int getRateForRegularCustomer() {
-		return rateForRegularCustomer;
+	public int getRateForRegularCustomerWeekDay() {
+		return rateForRegularCustomerWeekDay;
 	}
 
-	public void setRateForRegularCustomer(int rateForRegularCustomer) {
-		this.rateForRegularCustomer = rateForRegularCustomer;
+	public void setRateForRegularCustomerWeekDay(int rateForRegularCustomerWeekDay) {
+		this.rateForRegularCustomerWeekDay = rateForRegularCustomerWeekDay;
+	}
+
+	public int getRateForRegularCustomerWeekEnd() {
+		return rateForRegularCustomerWeekEnd;
+	}
+
+	public void setRateForRegularCustomerWeekEnd(int rateForRegularCustomerWeekEnd) {
+		this.rateForRegularCustomerWeekEnd = rateForRegularCustomerWeekEnd;
 	}
 
 	public long getTotalRate() {

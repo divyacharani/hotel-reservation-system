@@ -10,8 +10,8 @@ public class HotelReservation {
 
 	private List<Hotel> hotelList = new ArrayList<Hotel>();
 
-	public void addHotel(String hotelName, int rateForRegularCustomer) {
-		Hotel hotel = new Hotel(hotelName, rateForRegularCustomer);
+	public void addHotel(String hotelName, int rateForRegularCustomerWeekDay, int rateForRegularCustomerWeekEnd) {
+		Hotel hotel = new Hotel(hotelName, rateForRegularCustomerWeekDay,rateForRegularCustomerWeekEnd);
 		hotelList.add(hotel);
 	}
 
@@ -29,13 +29,13 @@ public class HotelReservation {
 		}
 		long dateRange = ((dateEnd.getTime() - dateStart.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 		Hotel cheapHotel = new Hotel();
-		//long totalRate = dateRange * hotelList.get(0).getRateForRegularCustomer();
-		//String hotelName = hotelList.get(0).getHotelName();
+		// long totalRate = dateRange * hotelList.get(0).getRateForRegularCustomer();
+		// String hotelName = hotelList.get(0).getHotelName();
 		long totalRate = Long.MAX_VALUE;
 		String hotelName = "";
 		for (Hotel hotel : hotelList) {
-			if (hotel.getRateForRegularCustomer() * dateRange < totalRate) {
-				totalRate = hotel.getRateForRegularCustomer() * dateRange;
+			if (hotel.getRateForRegularCustomerWeekDay() * dateRange < totalRate) {
+				totalRate = hotel.getRateForRegularCustomerWeekDay() * dateRange;
 				hotelName = hotel.getHotelName();
 			}
 		}
@@ -54,19 +54,20 @@ public class HotelReservation {
 		HotelReservation hotelReservation = new HotelReservation();
 
 		// Add hotels
-		hotelReservation.addHotel("Lakewood", 110);
-		hotelReservation.addHotel("Bridgewood", 160);
-		hotelReservation.addHotel("Ridgewood", 220);
+		hotelReservation.addHotel("Lakewood", 110, 90);
+		hotelReservation.addHotel("Bridgewood", 160, 60);
+		hotelReservation.addHotel("Ridgewood", 220, 150);
 
 		System.out.println("Enter the start date in ddMMMYYYY format");
 		String startDate = sc.next();
 		System.out.println("Enter the end date in ddMMMYYYY format");
 		String endDate = sc.next();
-		
-		//To find cheapest hotel
+
+		// To find cheapest hotel
 		Hotel cheapHotel = hotelReservation.cheapestHotel(startDate, endDate);
-		System.out.println("Cheapest Hotel name "+cheapHotel.getHotelName() + "\n" + "Total Rate " +cheapHotel.getTotalRate());
-	
+		System.out.println(
+				"Cheapest Hotel name " + cheapHotel.getHotelName() + "\n" + "Total Rate " + cheapHotel.getTotalRate());
+
 		sc.close();
 	}
 
