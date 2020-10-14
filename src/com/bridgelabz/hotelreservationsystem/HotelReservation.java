@@ -75,19 +75,15 @@ public class HotelReservation {
 		return besthotel;
 	}
 
-	public static void main(String[] args) {
+	// To add all the hotels to list
+	public void addHotelstoList() {
+		addHotel("Lakewood", 110, 90, 3, 80, 80);
+		addHotel("Bridgewood", 150, 50, 4, 110, 50);
+		addHotel("Ridgewood", 220, 150, 5, 100, 40);
+	}
 
-		Scanner sc = new Scanner(System.in);
-
-		// Welcome Message
-		System.out.println("Welcome to Hotel Reservation System");
-
-		HotelReservation hotelReservation = new HotelReservation();
-
-		// Add hotels
-		hotelReservation.addHotel("Lakewood", 110, 90, 3, 80, 80);
-		hotelReservation.addHotel("Bridgewood", 150, 50, 4, 110, 50);
-		hotelReservation.addHotel("Ridgewood", 220, 150, 5, 100, 40);
+	// To get customer type
+	public String getCustomerType(Scanner sc) {
 		boolean isValidate = false;
 		String type = "";
 		while (true) {
@@ -99,24 +95,56 @@ public class HotelReservation {
 			else
 				System.out.println("Invalid!!");
 		}
+		return type;
+	}
 
+	// To get start and end dates
+	public void getDates(Scanner sc) {
 		System.out.println("Enter the start date in ddMMMYYYY format");
 		String startDate = sc.next();
 		System.out.println("Enter the end date in ddMMMYYYY format");
 		String endDate = sc.next();
+		findDays(startDate, endDate);
+	}
+
+	// To print hotels
+	public void print(Hotel cheapestBestHotel, Hotel bestRatedHotel) {
+
+		System.out.println("Cheapest Best Rated Hotel name " + cheapestBestHotel.getHotelName() + "\n" + "Total Rate "
+				+ cheapestBestHotel.getTotalRate());
+		System.out.println("Rating " + cheapestBestHotel.getRating());
+		System.out.println("Best Rated Hotel name " + bestRatedHotel.getHotelName() + "\n" + "Total Rate "
+				+ bestRatedHotel.getTotalRate());
+		System.out.println("Rating " + bestRatedHotel.getRating());
+
+	}
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+
+		// Welcome Message
+		System.out.println("Welcome to Hotel Reservation System");
+
+		HotelReservation hotelReservation = new HotelReservation();
+
+		// Add hotels
+		hotelReservation.addHotelstoList();
+
+		// get customer type
+		String type = hotelReservation.getCustomerType(sc);
+
+		// get dates
+		hotelReservation.getDates(sc);
 
 		// To find cheapest best rated hotel
-		hotelReservation.findDays(startDate, endDate);
-		Hotel cheapHotel = hotelReservation.cheapestBestHotel(type);
-		System.out.println(
-				"Cheapest Hotel name " + cheapHotel.getHotelName() + "\n" + "Total Rate " + cheapHotel.getTotalRate());
-		System.out.println("Rating " + cheapHotel.getRating());
+		Hotel cheapestBestHotel = hotelReservation.cheapestBestHotel(type);
 
 		// To find best rated hotel
-		Hotel bestHotel = hotelReservation.bestRatedHotel(type);
-		System.out.println(
-				"Best Rated Hotel name " + bestHotel.getHotelName() + "\n" + "Total Rate " + bestHotel.getTotalRate());
-		System.out.println("Rating " + bestHotel.getRating());
+		Hotel bestRatedHotel = hotelReservation.bestRatedHotel(type);
+
+		// To print output
+		hotelReservation.print(cheapestBestHotel, bestRatedHotel);
 
 		sc.close();
 	}
