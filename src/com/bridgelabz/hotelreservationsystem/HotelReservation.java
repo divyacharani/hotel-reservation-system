@@ -15,7 +15,7 @@ public class HotelReservation {
 	public void addHotel(String hotelName, int rateForRegularCustomerWeekDay, int rateForRegularCustomerWeekEnd,
 			int rating, int rateForRewardCustomerWeekDay, int rateForRewardCustomerWeekEnd) {
 		Hotel hotel = new Hotel(hotelName, rateForRegularCustomerWeekDay, rateForRegularCustomerWeekEnd, rating,
-				rateForRegularCustomerWeekDay, rateForRegularCustomerWeekEnd);
+				rateForRewardCustomerWeekDay, rateForRewardCustomerWeekEnd);
 		hotelList.add(hotel);
 	}
 
@@ -41,14 +41,25 @@ public class HotelReservation {
 		}
 	}
 
+	// To calculate total rate
+	public long calculateTotalRate(Hotel hotel, int type) {
+		long hotelRate = 0;
+		if (type == 1)
+			hotelRate = hotel.getRateForRegularCustomerWeekDay() * noOfWeekDays
+					+ hotel.getRateForRegularCustomerWeekEnd() * noOfWeekEnds;
+		else if (type == 2)
+			hotelRate = hotel.getRateForRewardCustomerWeekDay() * noOfWeekDays
+					+ hotel.getRateForRewardCustomerWeekEnd() * noOfWeekEnds;
+		return hotelRate;
+	}
+
 	// To find cheapest best rated hotel
-	public Hotel cheapestBestHotel() {
+	public Hotel cheapestBestHotel(int type) {
 		Hotel cheapHotel = new Hotel();
 		long totalRate = Long.MAX_VALUE;
 		String hotelName = "";
 		for (Hotel hotel : hotelList) {
-			long hotelRate = hotel.getRateForRegularCustomerWeekDay() * noOfWeekDays
-					+ hotel.getRateForRegularCustomerWeekEnd() * noOfWeekEnds;
+			long hotelRate = calculateTotalRate(hotel, type);
 			if (hotelRate < totalRate || (hotelRate == totalRate && hotel.getRating() > cheapHotel.getRating())) {
 				totalRate = hotelRate;
 				hotelName = hotel.getHotelName();
@@ -61,13 +72,12 @@ public class HotelReservation {
 	}
 
 	// To find best rated hotel
-	public Hotel bestRatedHotel() {
+	public Hotel bestRatedHotel(int type) {
 		Hotel bestHotel = new Hotel();
 		long totalRate = Long.MAX_VALUE;
 		String hotelName = "";
 		for (Hotel hotel : hotelList) {
-			long hotelRate = hotel.getRateForRegularCustomerWeekDay() * noOfWeekDays
-					+ hotel.getRateForRegularCustomerWeekEnd() * noOfWeekEnds;
+			long hotelRate = calculateTotalRate(hotel, type);
 			if (hotel.getRating() > bestHotel.getRating()) {
 				totalRate = hotelRate;
 				hotelName = hotel.getHotelName();
@@ -92,7 +102,8 @@ public class HotelReservation {
 		hotelReservation.addHotel("Lakewood", 110, 90, 3, 80, 80);
 		hotelReservation.addHotel("Bridgewood", 150, 50, 4, 110, 50);
 		hotelReservation.addHotel("Ridgewood", 220, 150, 5, 100, 40);
-
+		System.out.println("Enter customer type \n1. Regular\n2. Reward");
+		int type = sc.nextInt();
 		System.out.println("Enter the start date in ddMMMYYYY format");
 		String startDate = sc.next();
 		System.out.println("Enter the end date in ddMMMYYYY format");
@@ -100,13 +111,13 @@ public class HotelReservation {
 
 		// To find cheapest best rated hotel
 		hotelReservation.findDays(startDate, endDate);
-		Hotel cheapHotel = hotelReservation.cheapestBestHotel();
+		Hotel cheapHotel = hotelReservation.cheapestBestHotel(type);
 		System.out.println(
 				"Cheapest Hotel name " + cheapHotel.getHotelName() + "\n" + "Total Rate " + cheapHotel.getTotalRate());
 		System.out.println("Rating " + cheapHotel.getRating());
 
 		// To find best rated hotel
-		Hotel bestHotel = hotelReservation.bestRatedHotel();
+		Hotel bestHotel = hotelReservation.bestRatedHotel(type);
 		System.out.println(
 				"Best Rated Hotel name " + bestHotel.getHotelName() + "\n" + "Total Rate " + bestHotel.getTotalRate());
 		System.out.println("Rating " + bestHotel.getRating());

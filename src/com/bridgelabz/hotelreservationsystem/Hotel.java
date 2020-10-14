@@ -17,8 +17,8 @@ public class Hotel {
 		this.rateForRegularCustomerWeekDay = rateForRegularCustomerWeekDay;
 		this.rateForRegularCustomerWeekEnd = rateForRegularCustomerWeekEnd;
 		this.rating = rating;
-		this.rateForRewardCustomerWeekDay = rateForRegularCustomerWeekDay;
-		this.rateForRegularCustomerWeekEnd = rateForRegularCustomerWeekEnd;
+		this.rateForRewardCustomerWeekDay = rateForRewardCustomerWeekDay;
+		this.rateForRewardCustomerWeekEnd = rateForRewardCustomerWeekEnd;
 	}
 
 	public Hotel() {
