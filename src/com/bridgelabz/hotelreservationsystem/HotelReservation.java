@@ -44,9 +44,10 @@ public class HotelReservation {
 		for (Hotel hotel : hotelList) {
 			long hotelRate = hotel.getRateForRegularCustomerWeekDay() * noOfWeekDays
 					+ hotel.getRateForRegularCustomerWeekEnd() * noOfWeekEnds;
-			if (hotelRate < totalRate) {
+			if (hotelRate < totalRate || (hotelRate == totalRate && hotel.getRating() > cheapHotel.getRating())) {
 				totalRate = hotelRate;
 				hotelName = hotel.getHotelName();
+				cheapHotel.setRating(hotel.getRating());
 			}
 		}
 		cheapHotel.setHotelName(hotelName);
@@ -65,7 +66,7 @@ public class HotelReservation {
 
 		// Add hotels
 		hotelReservation.addHotel("Lakewood", 110, 90, 3);
-		hotelReservation.addHotel("Bridgewood", 160, 60, 4);
+		hotelReservation.addHotel("Bridgewood", 150, 50, 4);
 		hotelReservation.addHotel("Ridgewood", 220, 150, 5);
 
 		System.out.println("Enter the start date in ddMMMYYYY format");
@@ -77,6 +78,7 @@ public class HotelReservation {
 		Hotel cheapHotel = hotelReservation.cheapestHotel(startDate, endDate);
 		System.out.println(
 				"Cheapest Hotel name " + cheapHotel.getHotelName() + "\n" + "Total Rate " + cheapHotel.getTotalRate());
+		System.out.println("Rating " + cheapHotel.getRating());
 
 		sc.close();
 	}
