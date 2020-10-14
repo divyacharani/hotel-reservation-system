@@ -11,7 +11,7 @@ public class HotelReservation {
 	private List<Hotel> hotelList = new ArrayList<Hotel>();
 
 	public void addHotel(String hotelName, int rateForRegularCustomerWeekDay, int rateForRegularCustomerWeekEnd) {
-		Hotel hotel = new Hotel(hotelName, rateForRegularCustomerWeekDay,rateForRegularCustomerWeekEnd);
+		Hotel hotel = new Hotel(hotelName, rateForRegularCustomerWeekDay, rateForRegularCustomerWeekEnd);
 		hotelList.add(hotel);
 	}
 
@@ -27,15 +27,23 @@ public class HotelReservation {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		long dateRange = ((dateEnd.getTime() - dateStart.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+		Date nextDate = dateStart;
+		long noOfWeekDays = 0;
+		long noOfWeekEnds = 0;
+		while (!nextDate.after(dateEnd)) {
+			if (nextDate.getDay() == 0 || nextDate.getDay() == 6)
+				noOfWeekEnds++;
+			else
+				noOfWeekDays++;
+			nextDate.setTime(nextDate.getTime()+(1000*60*60*24));
+		}
 		Hotel cheapHotel = new Hotel();
-		// long totalRate = dateRange * hotelList.get(0).getRateForRegularCustomer();
-		// String hotelName = hotelList.get(0).getHotelName();
 		long totalRate = Long.MAX_VALUE;
 		String hotelName = "";
 		for (Hotel hotel : hotelList) {
-			if (hotel.getRateForRegularCustomerWeekDay() * dateRange < totalRate) {
-				totalRate = hotel.getRateForRegularCustomerWeekDay() * dateRange;
+			long hotelRate = hotel.getRateForRegularCustomerWeekDay() * noOfWeekDays + hotel.getRateForRegularCustomerWeekEnd() * noOfWeekEnds ;
+			if (hotelRate < totalRate) {
+				totalRate = hotelRate;
 				hotelName = hotel.getHotelName();
 			}
 		}

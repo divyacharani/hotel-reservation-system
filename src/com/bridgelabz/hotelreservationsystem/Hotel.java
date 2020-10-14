@@ -9,7 +9,6 @@ public class Hotel {
 
 	// Constructor
 	public Hotel(String hotelName, int rateForRegularCustomerWeekDay, int rateForRegularCustomerWeekEnd) {
-		super();
 		this.hotelName = hotelName;
 		this.rateForRegularCustomerWeekDay = rateForRegularCustomerWeekDay;
 		this.rateForRegularCustomerWeekEnd = rateForRegularCustomerWeekEnd;
