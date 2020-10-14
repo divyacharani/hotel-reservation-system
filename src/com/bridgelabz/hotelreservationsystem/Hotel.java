@@ -7,13 +7,18 @@ public class Hotel {
 	private int rateForRegularCustomerWeekEnd;
 	private long totalRate;
 	private int rating;
+	private int rateForRewardCustomerWeekDay;
+	private int rateForRewardCustomerWeekEnd;
 
 	// Constructor
-	public Hotel(String hotelName, int rateForRegularCustomerWeekDay, int rateForRegularCustomerWeekEnd, int rating) {
+	public Hotel(String hotelName, int rateForRegularCustomerWeekDay, int rateForRegularCustomerWeekEnd, int rating,
+			int rateForRewardCustomerWeekDay, int rateForRewardCustomerWeekEnd) {
 		this.hotelName = hotelName;
 		this.rateForRegularCustomerWeekDay = rateForRegularCustomerWeekDay;
 		this.rateForRegularCustomerWeekEnd = rateForRegularCustomerWeekEnd;
 		this.rating = rating;
+		this.rateForRewardCustomerWeekDay = rateForRegularCustomerWeekDay;
+		this.rateForRegularCustomerWeekEnd = rateForRegularCustomerWeekEnd;
 	}
 
 	public Hotel() {
@@ -60,5 +65,21 @@ public class Hotel {
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-	
+
+	public int getRateForRewardCustomerWeekDay() {
+		return rateForRewardCustomerWeekDay;
+	}
+
+	public void setRateForRewardCustomerWeekDay(int rateForRewardCustomerWeekDay) {
+		this.rateForRewardCustomerWeekDay = rateForRewardCustomerWeekDay;
+	}
+
+	public int getRateForRewardCustomerWeekEnd() {
+		return rateForRewardCustomerWeekEnd;
+	}
+
+	public void setRateForRewardCustomerWeekEnd(int rateForRewardCustomerWeekEnd) {
+		this.rateForRewardCustomerWeekEnd = rateForRewardCustomerWeekEnd;
+	}
+
 }

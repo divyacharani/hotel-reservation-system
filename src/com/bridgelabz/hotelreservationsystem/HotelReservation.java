@@ -13,8 +13,9 @@ public class HotelReservation {
 	private List<Hotel> hotelList = new ArrayList<Hotel>();
 
 	public void addHotel(String hotelName, int rateForRegularCustomerWeekDay, int rateForRegularCustomerWeekEnd,
-			int rating) {
-		Hotel hotel = new Hotel(hotelName, rateForRegularCustomerWeekDay, rateForRegularCustomerWeekEnd, rating);
+			int rating, int rateForRewardCustomerWeekDay, int rateForRewardCustomerWeekEnd) {
+		Hotel hotel = new Hotel(hotelName, rateForRegularCustomerWeekDay, rateForRegularCustomerWeekEnd, rating,
+				rateForRegularCustomerWeekDay, rateForRegularCustomerWeekEnd);
 		hotelList.add(hotel);
 	}
 
@@ -88,9 +89,9 @@ public class HotelReservation {
 		HotelReservation hotelReservation = new HotelReservation();
 
 		// Add hotels
-		hotelReservation.addHotel("Lakewood", 110, 90, 3);
-		hotelReservation.addHotel("Bridgewood", 150, 50, 4);
-		hotelReservation.addHotel("Ridgewood", 220, 150, 5);
+		hotelReservation.addHotel("Lakewood", 110, 90, 3, 80, 80);
+		hotelReservation.addHotel("Bridgewood", 150, 50, 4, 110, 50);
+		hotelReservation.addHotel("Ridgewood", 220, 150, 5, 100, 40);
 
 		System.out.println("Enter the start date in ddMMMYYYY format");
 		String startDate = sc.next();
