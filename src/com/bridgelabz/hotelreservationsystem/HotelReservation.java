@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class HotelReservation {
+	static int noOfWeekDays = 0;
+	static int noOfWeekEnds = 0;
 
 	private List<Hotel> hotelList = new ArrayList<Hotel>();
 
@@ -16,8 +18,8 @@ public class HotelReservation {
 		hotelList.add(hotel);
 	}
 
-	// To find cheapest hotel
-	public Hotel cheapestHotel(String startDate, String endDate) {
+	// To find number of weekends and weekdays
+	public void findDays(String startDate, String endDate) {
 
 		SimpleDateFormat format = new SimpleDateFormat("ddMMMyyyy");
 		Date dateStart = null;
@@ -29,8 +31,6 @@ public class HotelReservation {
 			e.printStackTrace();
 		}
 		Date nextDate = dateStart;
-		long noOfWeekDays = 0;
-		long noOfWeekEnds = 0;
 		while (!nextDate.after(dateEnd)) {
 			if (nextDate.getDay() == 0 || nextDate.getDay() == 6)
 				noOfWeekEnds++;
@@ -38,6 +38,10 @@ public class HotelReservation {
 				noOfWeekDays++;
 			nextDate.setTime(nextDate.getTime() + (1000 * 60 * 60 * 24));
 		}
+	}
+
+	// To find cheapest best rated hotel
+	public Hotel cheapestBestHotel() {
 		Hotel cheapHotel = new Hotel();
 		long totalRate = Long.MAX_VALUE;
 		String hotelName = "";
@@ -53,6 +57,25 @@ public class HotelReservation {
 		cheapHotel.setHotelName(hotelName);
 		cheapHotel.setTotalRate(totalRate);
 		return cheapHotel;
+	}
+
+	// To find best rated hotel
+	public Hotel bestRatedHotel() {
+		Hotel bestHotel = new Hotel();
+		long totalRate = Long.MAX_VALUE;
+		String hotelName = "";
+		for (Hotel hotel : hotelList) {
+			long hotelRate = hotel.getRateForRegularCustomerWeekDay() * noOfWeekDays
+					+ hotel.getRateForRegularCustomerWeekEnd() * noOfWeekEnds;
+			if (hotel.getRating() > bestHotel.getRating()) {
+				totalRate = hotelRate;
+				hotelName = hotel.getHotelName();
+				bestHotel.setRating(hotel.getRating());
+			}
+		}
+		bestHotel.setHotelName(hotelName);
+		bestHotel.setTotalRate(totalRate);
+		return bestHotel;
 	}
 
 	public static void main(String[] args) {
@@ -74,11 +97,18 @@ public class HotelReservation {
 		System.out.println("Enter the end date in ddMMMYYYY format");
 		String endDate = sc.next();
 
-		// To find cheapest hotel
-		Hotel cheapHotel = hotelReservation.cheapestHotel(startDate, endDate);
+		// To find cheapest best rated hotel
+		hotelReservation.findDays(startDate, endDate);
+		Hotel cheapHotel = hotelReservation.cheapestBestHotel();
 		System.out.println(
 				"Cheapest Hotel name " + cheapHotel.getHotelName() + "\n" + "Total Rate " + cheapHotel.getTotalRate());
 		System.out.println("Rating " + cheapHotel.getRating());
+
+		// To find best rated hotel
+		Hotel bestHotel = hotelReservation.bestRatedHotel();
+		System.out.println(
+				"Best Rated Hotel name " + bestHotel.getHotelName() + "\n" + "Total Rate " + bestHotel.getTotalRate());
+		System.out.println("Rating " + bestHotel.getRating());
 
 		sc.close();
 	}
