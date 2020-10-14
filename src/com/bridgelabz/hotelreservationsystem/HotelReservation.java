@@ -10,8 +10,9 @@ public class HotelReservation {
 
 	private List<Hotel> hotelList = new ArrayList<Hotel>();
 
-	public void addHotel(String hotelName, int rateForRegularCustomerWeekDay, int rateForRegularCustomerWeekEnd) {
-		Hotel hotel = new Hotel(hotelName, rateForRegularCustomerWeekDay, rateForRegularCustomerWeekEnd);
+	public void addHotel(String hotelName, int rateForRegularCustomerWeekDay, int rateForRegularCustomerWeekEnd,
+			int rating) {
+		Hotel hotel = new Hotel(hotelName, rateForRegularCustomerWeekDay, rateForRegularCustomerWeekEnd, rating);
 		hotelList.add(hotel);
 	}
 
@@ -35,13 +36,14 @@ public class HotelReservation {
 				noOfWeekEnds++;
 			else
 				noOfWeekDays++;
-			nextDate.setTime(nextDate.getTime()+(1000*60*60*24));
+			nextDate.setTime(nextDate.getTime() + (1000 * 60 * 60 * 24));
 		}
 		Hotel cheapHotel = new Hotel();
 		long totalRate = Long.MAX_VALUE;
 		String hotelName = "";
 		for (Hotel hotel : hotelList) {
-			long hotelRate = hotel.getRateForRegularCustomerWeekDay() * noOfWeekDays + hotel.getRateForRegularCustomerWeekEnd() * noOfWeekEnds ;
+			long hotelRate = hotel.getRateForRegularCustomerWeekDay() * noOfWeekDays
+					+ hotel.getRateForRegularCustomerWeekEnd() * noOfWeekEnds;
 			if (hotelRate < totalRate) {
 				totalRate = hotelRate;
 				hotelName = hotel.getHotelName();
@@ -62,9 +64,9 @@ public class HotelReservation {
 		HotelReservation hotelReservation = new HotelReservation();
 
 		// Add hotels
-		hotelReservation.addHotel("Lakewood", 110, 90);
-		hotelReservation.addHotel("Bridgewood", 160, 60);
-		hotelReservation.addHotel("Ridgewood", 220, 150);
+		hotelReservation.addHotel("Lakewood", 110, 90, 3);
+		hotelReservation.addHotel("Bridgewood", 160, 60, 4);
+		hotelReservation.addHotel("Ridgewood", 220, 150, 5);
 
 		System.out.println("Enter the start date in ddMMMYYYY format");
 		String startDate = sc.next();

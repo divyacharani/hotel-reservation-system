@@ -6,12 +6,14 @@ public class Hotel {
 	private int rateForRegularCustomerWeekDay;
 	private int rateForRegularCustomerWeekEnd;
 	private long totalRate;
+	private int rating;
 
 	// Constructor
-	public Hotel(String hotelName, int rateForRegularCustomerWeekDay, int rateForRegularCustomerWeekEnd) {
+	public Hotel(String hotelName, int rateForRegularCustomerWeekDay, int rateForRegularCustomerWeekEnd, int rating) {
 		this.hotelName = hotelName;
 		this.rateForRegularCustomerWeekDay = rateForRegularCustomerWeekDay;
 		this.rateForRegularCustomerWeekEnd = rateForRegularCustomerWeekEnd;
+		this.rating = rating;
 	}
 
 	public Hotel() {
@@ -51,4 +53,12 @@ public class Hotel {
 		this.totalRate = totalRate;
 	}
 
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	
 }
